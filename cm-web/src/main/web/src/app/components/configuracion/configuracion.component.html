@@ -1,0 +1,21 @@
+<div class="col-md-6">
+    <h2 class="text-center">Configuracion de la Comunicación Serie</h2>
+    <form>
+        <div class="form-group">
+            <label for="puerto">Puerto:</label>
+            <input [(ngModel)]="serialport.port" placeholder="COM1" name="puerto" class="form-control" id="puerto">
+        </div>
+
+        <div class="form-group">
+            <label for="baudrate">Velocidad de Transferencia:</label>
+            <input [(ngModel)]="serialPort.baudrate" placeholder="9600" name="baudrate" class="form-control" id="baudrate">
+        </div>
+
+        <div class="form-group">
+            <label for="databits">Bits de Datos:</label>
+            <input [(ngModel)]="serialPort.databits" placeholder="8" name="databits" class="form-control" id="databits">
+        </div>
+
+        <button class="btn btn-success" (click)="updatePort()">Create</button>
+    </form>
+</div>
