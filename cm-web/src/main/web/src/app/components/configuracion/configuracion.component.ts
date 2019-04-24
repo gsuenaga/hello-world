@@ -23,7 +23,7 @@ export class ConfiguracionComponent implements OnInit {
   updatePort(): void {
     this.serialPortService.updatePort(this.serialPort)
         .subscribe( data => {
-          alert("User created successfully.");
+          alert('Puerto actualizado.');
         });
 
   }
