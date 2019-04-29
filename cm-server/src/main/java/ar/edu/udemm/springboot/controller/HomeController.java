@@ -6,12 +6,12 @@ package ar.edu.udemm.springboot.controller;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.udemm.springboot.services.data.PortService;
 import ar.edu.udemm.springboot.services.serialComm.CommService;
 
 /**
@@ -27,6 +27,9 @@ public class HomeController {
 	@Autowired
 	private CommService commService;
 
+	@Autowired
+	private PortService portService;
+	
 	@GetMapping
 	public String home() {
 		return "forward:/index.html";
@@ -34,6 +37,8 @@ public class HomeController {
 
 	@GetMapping("/portList")
 	public String[] getCommList() {
+		//primero debo ver si no esta ya en la BD
+		
 		String[] ports = commService.getAllPorts();
 		System.out.println(Arrays.toString(ports));
 		return commService.getAllPorts();
