@@ -3,6 +3,8 @@
  */
 package ar.edu.udemm.springboot.controller;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,12 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import ar.edu.udemm.springboot.services.serialComm.CommService;
 
 /**
+ * 
  * @author gsuenaga
  *
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping({"/ports"})
+@RequestMapping({ "/ports" })
 public class HomeController {
 
 	@Autowired
@@ -29,8 +32,10 @@ public class HomeController {
 		return "forward:/index.html";
 	}
 
-//	@GetMapping(path = { "/ports" })
-	public String[] getAllPorts() {
+	@GetMapping("/portList")
+	public String[] getCommList() {
+		String[] ports = commService.getAllPorts();
+		System.out.println(Arrays.toString(ports));
 		return commService.getAllPorts();
 	}
 }

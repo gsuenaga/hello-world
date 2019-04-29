@@ -13,10 +13,10 @@ export class SerialPortService {
 
   constructor(private http: HttpClient) {}
 
-  private serialPortUrl = 'http://localhost:8080/cm-parent/cm-server/ports';
+  private serialPortUrl = 'http://localhost:8090/ports';
 
   public getPorts() {
-    return this.http.get<SerialPort[]>(this.serialPortUrl);
+    return this.http.get<SerialPort[]>(this.serialPortUrl + '/portList');
   }
 
 /*   public deleteUser(user) {

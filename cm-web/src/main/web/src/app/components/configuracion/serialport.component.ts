@@ -18,9 +18,11 @@ export class SerialPortComponent implements OnInit {
   }
 
   ngOnInit() {
+     console.log('paso por ngOnInit');
     this.serialportService.getPorts()
       .subscribe( data => {
         this.ports = data;
+        console.log(data);
       });
   }
 
