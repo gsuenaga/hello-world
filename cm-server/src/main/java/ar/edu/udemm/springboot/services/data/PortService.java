@@ -8,6 +8,8 @@ public interface PortService {
 
 	Port delete(int id);
 
+	boolean deleteAll();
+	
     List<Port> findAll();
 
     Port findById(int id);

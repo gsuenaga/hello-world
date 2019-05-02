@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ar.edu.udemm.springboot.services.data.Port;
 import ar.edu.udemm.springboot.services.data.PortService;
 import ar.edu.udemm.springboot.services.serialComm.CommService;
+import jssc.SerialPort;
 
 /**
  * 
@@ -31,27 +32,34 @@ public class HomeController {
 
 	@Autowired
 	private PortService portService;
-	
+
 	@GetMapping
 	public String home() {
 		return "forward:/index.html";
 	}
 
 	@GetMapping("/portList")
-	public String[] getCommList() {
-		String[] ports = null;
-		//primero debo ver si no esta ya en la BD
+	public List<Port> getCommList() {
+		String[] ports = commService.getAllPorts();
+		// primero debo ver si no esta ya en la BD
 		List<Port> portsList = portService.findAll();
-		if( portsList!=null && portsList.size()>0) {
-		// recupero de a BD y le paso este dato
-		}else {
-			//obtengo el port y los otros parametros le pongo valor por defecto
-			ports = commService.getAllPorts();	
+		if (portsList != null && portsList.size() > 0 && ports.length == portsList.size()) {
+
+			return portsList;
+
+		} else {
+			portService.deleteAll();
+			portsList.clear();
+
+			for (int i = 0; i < ports.length; i++) {
+				Port port = new Port(ports[i], SerialPort.BAUDRATE_9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
+						commService.getParity(SerialPort.PARITY_NONE));
+				portService.create(port);
+				portsList.add(port);
+			}
 		}
-		
-		System.out.println(Arrays.toString(ports));
-		
-		// debo retornar un objeto con todos los datos del com
-		return ports;
+
+		return portsList;
 	}
+
 }

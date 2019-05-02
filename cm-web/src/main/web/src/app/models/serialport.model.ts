@@ -4,5 +4,5 @@ export class SerialPort {
   baudrate: string;
   databits: string;
   stopbits: string;
-  parity: string;
+  paritybits: string;
 }

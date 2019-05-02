@@ -1,1 +1,1 @@
-create table user (id integer not null auto_increment, port varchar(255), baudrate varchar(255), databits varchar(255), stopbits varchar(255), parity varchar(255), primary key (id))
+create table port (id integer not null auto_increment, port varchar(10), baudrate integer, databits integer, stopbits integer, parity varchar(20), primary key (id))

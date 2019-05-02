@@ -13,11 +13,11 @@ public class Port {
     @Column
     private String port;
     @Column
-    private String baudrate;
+    private int baudrate;
     @Column
-    private String databits;
+    private int databits;
     @Column
-    private String stopbits;
+    private int stopbits;
     @Column
     private String paritybits;
     
@@ -37,27 +37,27 @@ public class Port {
 		this.port = port;
 	}
 
-	public String getBaudrate() {
+	public int getBaudrate() {
 		return baudrate;
 	}
 
-	public void setBaudrate(String baudrate) {
+	public void setBaudrate(int baudrate) {
 		this.baudrate = baudrate;
 	}
 
-	public String getDatabits() {
+	public int getDatabits() {
 		return databits;
 	}
 
-	public void setDatabits(String databits) {
+	public void setDatabits(int databits) {
 		this.databits = databits;
 	}
 
-	public String getStopbits() {
+	public int getStopbits() {
 		return stopbits;
 	}
 
-	public void setStopbits(String stopbits) {
+	public void setStopbits(int stopbits) {
 		this.stopbits = stopbits;
 	}
 
@@ -67,6 +67,20 @@ public class Port {
 
 	public void setParitybits(String paritybits) {
 		this.paritybits = paritybits;
+	}
+
+	public Port(String port, int baudrate, int databits, int stopbits, String paritybits) {
+		super();
+		this.port = port;
+		this.baudrate = baudrate;
+		this.databits = databits;
+		this.stopbits = stopbits;
+		this.paritybits = paritybits;
+	}
+
+	public Port() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 }

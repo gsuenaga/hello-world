@@ -1,10 +1,10 @@
 <div class="col-md-6">
     <h2> Lista Puertos</h2>
 
-    <table class="table table-striped">
+    <table class="table table-striped text-center text-nowrap">
         <thead>
             <tr>
-                <th class="hidden">Id</th>
+                <th style="display:none">Id</th>
                 <th>Puerto</th>
                 <th>Velocidad</th>
                 <th>Bits de datos</th>
@@ -14,13 +14,14 @@
         </thead>
         <tbody>
             <tr *ngFor="let port of ports">
-                <td class="hidden">{{port.id}}</td>
+                <td style="display:none">{{port.id}}</td>
                 <td>{{port.port}}</td>
                 <td>{{port.baudrate}}</td>
                 <td>{{port.databits}}</td>
                 <td>{{port.stopbits}}</td>
-                <td>{{port.parity}}</td>
-                <td><button class="btn btn-danger" (click)="updatePort(port)"> Editar Puerto</button></td>
+                <td>{{port.paritybits}}</td>
+                <td><a class="btn btn-info btn-sm" role="button" routerLink="/search">Editar</a></td>
+                <td><button class="btn btn-danger btn-sm" (click)="updatePort(port)">Eliminar</button></td>
             </tr>
         </tbody>
     </table>
