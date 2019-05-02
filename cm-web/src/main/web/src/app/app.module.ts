@@ -6,7 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { SerialPortComponent } from './components/configuracion/serialPort.component';
+import { SerialPortComponent } from './components/configuracion/serialport.component';
 import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { SerialPortService } from './components/configuracion/serialport.service';

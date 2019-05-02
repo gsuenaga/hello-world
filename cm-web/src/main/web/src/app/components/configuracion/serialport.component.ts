@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { SerialPort } from '../../models/SerialPort.model';
+import { SerialPort } from '../../models/serialport.model';
 import { SerialPortService } from './serialport.service';
 
 @Component({
   selector: 'app-serialport',
-  templateUrl: './serialport.component.html',
-  styles: []
+  templateUrl: './serialport.component.html'
 })
+
 export class SerialPortComponent implements OnInit {
 
   ports: SerialPort[];
