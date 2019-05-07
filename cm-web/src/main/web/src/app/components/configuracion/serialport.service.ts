@@ -11,6 +11,9 @@ const httpOptions = {
 @Injectable()
 export class SerialPortService {
 
+  port: SerialPort;
+  ports: SerialPort[];
+
   constructor(private http: HttpClient) {}
 
   private serialPortUrl = 'http://localhost:8090/ports';
@@ -27,4 +30,22 @@ export class SerialPortService {
     return this.http.post<SerialPort>(this.serialPortUrl, port);
   }
 
+  // public getSerialPortSelected() {
+  //   console.log('getSerialPortSelected');
+  //   console.log(this.port);
+  //   return this.port;
+  // }
+
+  // public setSerialPortSelected(id) {
+  //   console.log('setSerialPortSelected');
+  //   console.log(id);
+  //   this.port.id = id;
+  //   // this.port = this.ports.find(x => x.id === portId);
+  //   console.log('se guardo');
+  //   console.log(this.port.id);
+  // }
+
+  // public setSerialPorts(ports: SerialPort[]) {
+  //   this.ports = ports;
+  // }
 }

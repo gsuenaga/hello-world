@@ -20,7 +20,11 @@
                 <td>{{port.databits}}</td>
                 <td>{{port.stopbits}}</td>
                 <td>{{port.paritybits}}</td>
-                <td><a class="btn btn-info btn-sm" role="button" routerLink="/search">Editar</a></td>
+                <!-- <td><a class="btn btn-info btn-sm" role="button" routerLink="/search/1">Editar</a></td> -->
+                <!-- <td><a [routerLink]="['/detail', 1]" (click)="setPortSelected(port.id)">Editar</a></td> -->
+                <td>
+                    <a routerLink="/detail/{{port.id}}/{{port.port}}/{{port.baudrate}}/{{port.databits}}/{{port.stopbits}}">Editar</a>
+                </td>
                 <td><button class="btn btn-danger btn-sm" (click)="updatePort(port)">Eliminar</button></td>
             </tr>
         </tbody>

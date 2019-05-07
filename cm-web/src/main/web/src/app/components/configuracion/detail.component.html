@@ -1,0 +1,26 @@
+<div class="col-md-6">
+    <h2 class="text-center">Configuracion</h2>
+    <form>
+        <div class="form-group">
+            <label for="puerto">Puerto:</label>
+            <input [(ngModel)]='port.port' name="puerto" class="form-control" id="puerto">
+        </div>
+
+        <div class="form-group">
+            <label for="baudrate">Velocidad de Transferencia:</label>
+            <input [(ngModel)]="port.baudrate" name="baudrate" class="form-control" id="baudrate">
+        </div>
+
+        <div class="form-group">
+            <label for="databits">Bits de Datos:</label>
+            <input [(ngModel)]="port.databits" name="databits" class="form-control" id="databits">
+        </div>
+
+        <div class="form-group">
+            <label for="stopbits">Bits de Stop:</label>
+            <input [(ngModel)]="port.stopbits" name="stopbits" class="form-control" id="stopbits">
+        </div>
+
+        <button class="btn btn-success" (click)="updatePort()">Create</button>
+    </form>
+</div>

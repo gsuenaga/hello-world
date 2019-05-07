@@ -1,15 +1,20 @@
-import { Routes } from '@angular/router';
+// import { Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-// import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
+import { DetailComponent } from './components/configuracion/detail.component';
 import { SerialPortComponent } from './components/configuracion/serialport.component';
 
-export const ROUTES: Routes = [
+const routes: Routes = [
     { path: 'home', component: HomeComponent },
-    { path: 'search', component: ConfiguracionComponent },
+    { path: 'detail/:id/:port/:baudrate/:databits/:stopbits', component: DetailComponent },
     { path: 'ports', component: SerialPortComponent },
     { path: '', pathMatch: 'full', redirectTo: 'home' },
     { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 
+@NgModule({
+    imports : [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+})
+export class AppRoutingModule {}
