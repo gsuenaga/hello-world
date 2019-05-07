@@ -8,4 +8,5 @@ public interface CommService {
 
 	String[] getAllPorts();
 
+	String getParity(int parity);
 }
