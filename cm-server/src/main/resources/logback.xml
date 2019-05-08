@@ -31,6 +31,9 @@
 		</rollingPolicy>
 	</appender>
 
+ <!--   <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE-ROLLING" />
+    </appender> -->
 	<!-- LOG everything at INFO level -->
 	<root level="debug">
 		<appender-ref ref="file" />
