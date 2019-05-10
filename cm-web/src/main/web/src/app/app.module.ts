@@ -27,6 +27,7 @@ import { AppRoutingModule } from './app.routes';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule
+
     // RouterModule.forRoot( ROUTES, { useHash: true } )
   ],
   providers: [SerialPortService],

@@ -34,13 +34,26 @@ export class SerialPortComponent implements OnInit {
       });
   }
 
+  connectPort(port: SerialPort): void {
+    this.serialportService.connectPort(port)
+      .subscribe( data => {
+          console.log(data);
+      },
+      response => {
+          console.log("POST call in error", response);
+      },
+      () => {
+          console.log("The POST observable is now completed.");
+      });
+      
+  }
   // onSelect(port) {
   //   this.portId = port.id;
   //   this.serialportService.setPortSelected()
   //   function getDimensionsByFilter(id){
   //     return port.filter(x => x.id === id);
   //   }
-  }
+  // }
 }
 
 
