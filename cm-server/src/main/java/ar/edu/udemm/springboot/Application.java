@@ -9,7 +9,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * @author Swathi
+ * @author gsuenaga
  *
  */
 //@SpringBootApplication

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { Observable } from 'rxjs';
 import { SerialPort } from '../../models/serialport.model';
 
 
@@ -30,22 +30,14 @@ export class SerialPortService {
     return this.http.post<SerialPort>(this.serialPortUrl, port);
   }
 
-  // public getSerialPortSelected() {
-  //   console.log('getSerialPortSelected');
-  //   console.log(this.port);
-  //   return this.port;
-  // }
+  public connectPort(port) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
-  // public setSerialPortSelected(id) {
-  //   console.log('setSerialPortSelected');
-  //   console.log(id);
-  //   this.port.id = id;
-  //   // this.port = this.ports.find(x => x.id === portId);
-  //   console.log('se guardo');
-  //   console.log(this.port.id);
-  // }
+    return this.http.post<string>(this.serialPortUrl + '/connect', port, { headers,  responseType: 'text' as 'json' });
+  }
 
-  // public setSerialPorts(ports: SerialPort[]) {
-  //   this.ports = ports;
-  // }
-}
+ 
+} 
+
+  
+

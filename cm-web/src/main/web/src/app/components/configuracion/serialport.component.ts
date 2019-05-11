@@ -1,35 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-// import { Router } from '@angular/router';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { SerialPort } from '../../models/serialport.model';
 import { SerialPortService } from './serialport.service';
 
 @Component({
   selector: 'app-serialport',
-  templateUrl: './serialport.component.html',
-  styles: []
+  templateUrl: './serialport.component.html'
 })
 
 export class SerialPortComponent implements OnInit {
 
   ports: SerialPort[];
+  portId: number = null;
+  port: SerialPort;
 
-  // constructor(private router: Router, private serialportService: SerialPortService) {
-    constructor(private route: ActivatedRoute, private serialportService: SerialPortService) {
+  constructor(private router: Router, private serialportService: SerialPortService) {
 
   }
 
   ngOnInit() {
-     console.log('paso por ngOnInit');
     this.serialportService.getPorts()
       .subscribe( data => {
         this.ports = data;
-        // this.serialportService.setSerialPorts(this.ports);
-
         console.log(data);
       });
-
   }
 
   updatePort(port: SerialPort): void {
@@ -39,9 +34,25 @@ export class SerialPortComponent implements OnInit {
       });
   }
 
-  // public setPortSelected(portId) {
-  //   console.log('port.id in service ' + portId);
-  //   this.serialportService.setSerialPortSelected(portId);
+  connectPort(port: SerialPort): void {
+    this.serialportService.connectPort(port)
+      .subscribe( data => {
+          console.log(data);
+      },
+      response => {
+          console.log("POST call in error", response);
+      },
+      () => {
+          console.log("The POST observable is now completed.");
+      });
+      
+  }
+  // onSelect(port) {
+  //   this.portId = port.id;
+  //   this.serialportService.setPortSelected()
+  //   function getDimensionsByFilter(id){
+  //     return port.filter(x => x.id === id);
+  //   }
   // }
 }
 
