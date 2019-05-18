@@ -5,7 +5,7 @@ import { SerialPort } from '../../models/serialport.model';
 import { SerialPortService } from './serialport.service';
 
 import { Stomp } from '@stomp/stompjs';
-import { SockJS } from 'sockjs-client';
+import SockJS from 'sockjs-client';
 
 @Component({
   selector: 'app-serialport',

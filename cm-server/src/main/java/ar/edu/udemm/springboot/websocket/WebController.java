@@ -1,13 +1,18 @@
 package ar.edu.udemm.springboot.websocket;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
 import ar.edu.udemm.springboot.services.data.Port;
+import ar.edu.udemm.springboot.services.serialComm.CommService;
 
 @Controller
 public class WebController {
+
+	@Autowired
+	private CommService commService;
 
 //	@MessageMapping("/hello")
 //	@SendTo("/topic/hi")
@@ -18,7 +23,9 @@ public class WebController {
 	@MessageMapping("/hello")
 	@SendTo("/topic/hi")
 	public String greeting(Port port) throws Exception {
-		return "Conectado";
+//		return "Conectadoooooo";
+		System.out.println("paso por aca");
+		return commService.connect(port);
 	}
 	
 }
