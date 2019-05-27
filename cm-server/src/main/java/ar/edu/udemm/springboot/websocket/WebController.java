@@ -22,10 +22,10 @@ public class WebController {
 //	
 	@MessageMapping("/hello")
 	@SendTo("/topic/hi")
-	public String greeting(Port port) throws Exception {
-//		return "Conectadoooooo";
+	public String greeting(String x) throws Exception {
 		System.out.println("paso por aca");
-		return commService.connect(port);
+		return "Conectadoooooo";
+//		return commService.connect(port);
 	}
 	
 }
