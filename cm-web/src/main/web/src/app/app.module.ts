@@ -10,6 +10,7 @@ import { SerialPortComponent } from './components/configuracion/serialport.compo
 import { DetailComponent } from './components/configuracion/detail.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { SerialPortService } from './components/configuracion/serialport.service';
+import { WebSocketService } from './components/configuracion/websocket.service';
 
 import { AppRoutingModule } from './app.routes';
 
@@ -30,7 +31,7 @@ import { AppRoutingModule } from './app.routes';
 
     // RouterModule.forRoot( ROUTES, { useHash: true } )
   ],
-  providers: [SerialPortService],
+  providers: [SerialPortService, WebSocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

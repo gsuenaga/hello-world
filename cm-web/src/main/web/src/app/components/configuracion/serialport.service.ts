@@ -36,8 +36,8 @@ export class SerialPortService {
     return this.http.post<string>(this.serialPortUrl + '/connect', port, { headers,  responseType: 'text' as 'json' });
   }
 
- 
-} 
 
-  
+}
+
+
 

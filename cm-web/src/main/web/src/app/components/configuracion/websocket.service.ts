@@ -13,13 +13,13 @@ const httpOptions = {
 
   @Injectable()
   export class WebSocketService {
-
-
+    private stompClient = null;
+    greetings: string[] = [];
+    disabled = true;
     constructor(private http: HttpClient) {}
 
-    private serialPortUrl = 'http://localhost:8090/ports';
-
     connectWS() {
+      if (this.disabled) {
         const socket = new SockJS('http://localhost:8090/gkz-stomp-endpoint');
         this.stompClient = Stomp.over(socket);
 
@@ -33,5 +33,17 @@ const httpOptions = {
           });
         });
         }
+      }
 
+        setConnected(connected: boolean) {
+            this.disabled = !connected;
+
+            if (connected) {
+              this.greetings = [];
+            }
+          }
+
+          showGreeting(message) {
+            this.greetings.push(message);
+          }
   }

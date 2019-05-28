@@ -32,7 +32,6 @@ export class SerialPortComponent implements OnInit {
         this.ports = data;
         console.log(data);
       });
-    this.connectWS2();
   }
 
   updatePort(port: SerialPort): void {
