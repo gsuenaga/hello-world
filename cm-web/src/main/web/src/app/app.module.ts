@@ -13,6 +13,7 @@ import { SerialPortService } from './components/configuracion/serialport.service
 import { WebSocketService } from './components/configuracion/websocket.service';
 
 import { AppRoutingModule } from './app.routes';
+import { ReglaComponent } from './components/configuracion/regla.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AppRoutingModule } from './app.routes';
     HomeComponent,
     DetailComponent,
     SerialPortComponent,
-    NavbarComponent
+    NavbarComponent,
+    ReglaComponent
   ],
   imports: [
     FormsModule,
