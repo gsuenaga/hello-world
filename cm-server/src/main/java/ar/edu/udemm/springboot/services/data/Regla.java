@@ -8,9 +8,10 @@ public class Regla {
 
     @Id
     @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
-    private int distancia;
+    private Double distancia;
     
     public int getId() {
         return id;
@@ -20,18 +21,18 @@ public class Regla {
         this.id = id;
     }
 
-	public int getDistancia() {
+	public Double getDistancia() {
 		return distancia;
 	}
 
-	public void setDistancia(int distancia) {
+	public void setDistancia(Double distancia) {
 		this.distancia = distancia;
 	}
 
-	public Regla(int id, int distancia) {
+	public Regla(int id, double d) {
 		super();
 		this.id = id;
-		this.distancia = distancia;
+		this.distancia = d;
 	}
 
 	public Regla() {

@@ -16,8 +16,10 @@ import jssc.SerialPortList;
 @Service
 public class CommServiceImpl implements CommService {
 
-	SerialPort serialPort;
-	
+	private SerialPort serialPort;
+
+	private String estado = "Desconectado";
+
 	private final Logger logger = LoggerFactory.getLogger(CommService.class);
 
 	@Override
@@ -46,18 +48,20 @@ public class CommServiceImpl implements CommService {
 
 	@Override
 	public String connect(Port port) {
-		String res = "Desconectado";
 		try {
 			this.serialPort = new SerialPort(port.getPort());
 			if (this.serialPort.openPort() && this.serialPort.setParams(port.getBaudrate(), port.getDatabits(),
 					port.getStopbits(), getParityAsNumber(port.getParitybits()))) {
-				res = "Conectado";
+				int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;// Prepare mask
+				serialPort.setEventsMask(mask);// Set mask
+				serialPort.addEventListener(new SerialPortReader(serialPort));// Add SerialPortEventListener
+				this.estado = "Conectado";
 			}
 		} catch (SerialPortException ex) {
 			logger.error(ex.getMessage());
 		}
-		logger.info(res);
-		return res;
+		logger.info("estado :" + this.estado);
+		return this.estado;
 	}
 
 	private int getParityAsNumber(String paritybits) {
@@ -78,4 +82,13 @@ public class CommServiceImpl implements CommService {
 		return 0;
 	}
 
+	@Override
+	public String getEstado() {
+		return estado;
+	}
+
+	@Override
+	public SerialPort getSerialPort() {
+		return serialPort;
+	}
 }
