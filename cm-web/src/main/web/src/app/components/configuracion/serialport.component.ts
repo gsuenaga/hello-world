@@ -21,6 +21,7 @@ export class SerialPortComponent implements OnInit {
   private stompClient = null;
   greetings: string[] = [];
   disabled = true;
+  estado = 'Desconectado';
 
   constructor(private router: Router, private serialportService: SerialPortService) {
 
@@ -44,6 +45,7 @@ export class SerialPortComponent implements OnInit {
   connectPort(port: SerialPort): void {
     this.serialportService.connectPort(port)
       .subscribe( data => {
+        this.estado = data;
           console.log(data);
       },
       response => {

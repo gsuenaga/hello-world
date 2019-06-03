@@ -29,7 +29,8 @@ const httpOptions = {
           console.log('Connected: ' + frame);
 
           _this.stompClient.subscribe('/topic/hi', function (hello) {
-            _this.showGreeting(JSON.parse(hello.body).greeting);
+            // _this.showGreeting(JSON.parse(hello.body).greeting);
+            _this.showGreeting(hello.body);
           });
         });
         }
@@ -44,6 +45,7 @@ const httpOptions = {
           }
 
           showGreeting(message) {
+            console.log(message);
             this.greetings.push(message);
           }
   }
