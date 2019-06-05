@@ -1,5 +1,6 @@
 package ar.edu.udemm.springboot.services.serialComm;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -9,10 +10,8 @@ import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
 
-/**
- * @author gsuenaga
- *
- */
+import ar.edu.udemm.springboot.services.serialComm.SerialPortReader;
+
 @Service
 public class CommServiceImpl implements CommService {
 
@@ -91,4 +90,12 @@ public class CommServiceImpl implements CommService {
 	public SerialPort getSerialPort() {
 		return serialPort;
 	}
+	
+	/*
+	 * Recibe datos en microsegundos
+	 * es entero, no tiene decimales
+	 * es de longitud variables
+	 * caracter de comienzo T
+	 * caracter de fin F
+	 */
 }
