@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 
 const httpOptions = {
@@ -16,7 +16,18 @@ const httpOptions = {
     private stompClient = null;
     greetings: string[] = [];
     disabled = true;
-    constructor(private http: HttpClient) {}
+
+    private people: Array<String>;
+    public observablePeople: BehaviorSubject<String[]>;
+
+    constructor(private http: HttpClient) {
+      this.people = new Array<String>();
+      this.observablePeople = new BehaviorSubject<String[]>(this.people);
+    }
+
+    eventChange() {
+      this.observablePeople.next(this.people);
+    }
 
     connectWS() {
       if (this.disabled) {
@@ -33,19 +44,25 @@ const httpOptions = {
             _this.showGreeting(hello.body);
           });
         });
-        }
       }
+    }
 
-        setConnected(connected: boolean) {
-            this.disabled = !connected;
+    setConnected(connected: boolean) {
+      this.disabled = !connected;
 
-            if (connected) {
-              this.greetings = [];
-            }
-          }
+      if (connected) {
+        this.greetings = [];
+      }
+    }
 
-          showGreeting(message) {
-            console.log(message);
-            this.greetings.push(message);
-          }
+    showGreeting(message) {
+      message = message.replace('[', '\\r').replace(']', '\\r').replace(',', '').replace('""', '').replace('"', '');
+      message = message.split('\\r').filter(item => item !== '' && item !== '"');
+      console.log(message);
+      this.greetings.push(message);
+
+      this.people.push(message);
+      this.eventChange();
+    }
+
   }

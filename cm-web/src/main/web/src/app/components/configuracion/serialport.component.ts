@@ -22,6 +22,7 @@ export class SerialPortComponent implements OnInit {
   greetings: string[] = [];
   disabled = true;
   estado = 'Desconectado';
+  showActions = false;
 
   constructor(private router: Router, private serialportService: SerialPortService) {
 
@@ -42,10 +43,35 @@ export class SerialPortComponent implements OnInit {
       });
   }
 
+  updateShowActions(): void {
+    if (this.estado === 'Conectado') {
+      this.showActions = true;
+    } else {
+      this.showActions = false;
+    }
+  }
+
   connectPort(port: SerialPort): void {
     this.serialportService.connectPort(port)
       .subscribe( data => {
         this.estado = data;
+        this.updateShowActions();
+          console.log(port.port + ':' + data);
+      },
+      response => {
+          console.log('POST call in error', response);
+      },
+      () => {
+          console.log('The POST observable is now completed.');
+      });
+
+  }
+
+  disconnectPort(port: SerialPort): void {
+    this.serialportService.disconnectPort(port)
+      .subscribe( data => {
+        this.estado = data;
+        this.updateShowActions();
           console.log(data);
       },
       response => {
@@ -57,64 +83,64 @@ export class SerialPortComponent implements OnInit {
 
   }
 
-  disconnect() {
-    if (this.stompClient != null) {
-      this.stompClient.disconnect();
-    }
+  // disconnect() {
+  //   if (this.stompClient != null) {
+  //     this.stompClient.disconnect();
+  //   }
 
-    this.setConnected(false);
-    console.log('Disconnected!');
-  }
+  //   this.setConnected(false);
+  //   console.log('Disconnected!');
+  // }
 
-  setConnected(connected: boolean) {
-    this.disabled = !connected;
+  // setConnected(connected: boolean) {
+  //   this.disabled = !connected;
 
-    if (connected) {
-      this.greetings = [];
-    }
-  }
+  //   if (connected) {
+  //     this.greetings = [];
+  //   }
+  // }
 
-  showGreeting(message) {
-    this.greetings.push(message);
-  }
+  // showGreeting(message) {
+  //   this.greetings.push(message);
+  // }
 
-  connectWS(port: SerialPort) {
-  const socket = new SockJS('http://localhost:8090/gkz-stomp-endpoint');
-  this.stompClient = Stomp.over(socket);
+  // connectWS(port: SerialPort) {
+  // const socket = new SockJS('http://localhost:8090/gkz-stomp-endpoint');
+  // this.stompClient = Stomp.over(socket);
 
-  const _this = this;
-  this.stompClient.connect({}, function (frame) {
-    _this.setConnected(true);
-    console.log('Connected: ' + frame);
+  // const _this = this;
+  // this.stompClient.connect({}, function (frame) {
+  //   _this.setConnected(true);
+  //   console.log('Connected: ' + frame);
 
-    _this.stompClient.subscribe('/topic/hi', function (hello) {
-      _this.showGreeting(JSON.parse(hello.body).greeting);
-    });
-  });
-  }
+  //   _this.stompClient.subscribe('/topic/hi', function (hello) {
+  //     _this.showGreeting(JSON.parse(hello.body).greeting);
+  //   });
+  // });
+  // }
 
-  connectWS2() {
-    const socket = new SockJS('http://localhost:8090/gkz-stomp-endpoint');
-    this.stompClient = Stomp.over(socket);
+  // connectWS2() {
+  //   const socket = new SockJS('http://localhost:8090/gkz-stomp-endpoint');
+  //   this.stompClient = Stomp.over(socket);
 
-    const _this = this;
-    this.stompClient.connect({}, function (frame) {
-      _this.setConnected(true);
-      console.log('Connected: ' + frame);
+  //   const _this = this;
+  //   this.stompClient.connect({}, function (frame) {
+  //     _this.setConnected(true);
+  //     console.log('Connected: ' + frame);
 
-      _this.stompClient.subscribe('/topic/hi', function (hello) {
-        _this.showGreeting(JSON.parse(hello.body).greeting);
-      });
-    });
-    }
+  //     _this.stompClient.subscribe('/topic/hi', function (hello) {
+  //       _this.showGreeting(JSON.parse(hello.body).greeting);
+  //     });
+  //   });
+  //   }
 
-  sendName(port: SerialPort) {
-    this.stompClient.send(
-      '/gkz/hello',
-      {},
-      JSON.stringify({ 'name': port })
-    );
-  }
+  // sendName(port: SerialPort) {
+  //   this.stompClient.send(
+  //     '/gkz/hello',
+  //     {},
+  //     JSON.stringify({ 'name': port })
+  //   );
+  // }
 
   // onSelect(port) {
   //   this.portId = port.id;

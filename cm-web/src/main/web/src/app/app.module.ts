@@ -14,6 +14,7 @@ import { WebSocketService } from './components/configuracion/websocket.service';
 
 import { AppRoutingModule } from './app.routes';
 import { ReglaComponent } from './components/configuracion/regla.component';
+import { ReglaService } from './components/configuracion/regla.service';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { ReglaComponent } from './components/configuracion/regla.component';
 
     // RouterModule.forRoot( ROUTES, { useHash: true } )
   ],
-  providers: [SerialPortService, WebSocketService],
+  providers: [SerialPortService, WebSocketService, ReglaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
