@@ -1,6 +1,9 @@
 package ar.edu.udemm.springboot.services.serialComm;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,8 @@ public class CommServiceImpl implements CommService {
 
 	private String estado = "Desconectado";
 
+	private List<String> mediciones = new ArrayList<String>();
+	
 	private final Logger logger = LoggerFactory.getLogger(CommService.class);
 
 	@Override
@@ -53,8 +58,24 @@ public class CommServiceImpl implements CommService {
 					port.getStopbits(), getParityAsNumber(port.getParitybits()))) {
 				int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;// Prepare mask
 				serialPort.setEventsMask(mask);// Set mask
-				serialPort.addEventListener(new SerialPortReader(serialPort));// Add SerialPortEventListener
+				serialPort.addEventListener(new SerialPortReader(serialPort, this));// Add SerialPortEventListener
 				this.estado = "Conectado";
+			}
+		} catch (SerialPortException ex) {
+			logger.error(ex.getMessage());
+		}
+		logger.info("estado :" + this.estado);
+		return this.estado;
+	}
+	
+	@Override
+	public String disconnect(Port port) {
+		try {
+			this.serialPort = new SerialPort(port.getPort());
+			if(this.serialPort.closePort()) {
+				this.estado = "Desconectado";
+			}else {
+				logger.warn("falló desconexión");
 			}
 		} catch (SerialPortException ex) {
 			logger.error(ex.getMessage());
@@ -91,11 +112,8 @@ public class CommServiceImpl implements CommService {
 		return serialPort;
 	}
 	
-	/*
-	 * Recibe datos en microsegundos
-	 * es entero, no tiene decimales
-	 * es de longitud variables
-	 * caracter de comienzo T
-	 * caracter de fin F
-	 */
+	@Override
+	public List<String> getMediciones(){
+		return mediciones;
+	}
 }

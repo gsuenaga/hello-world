@@ -1,14 +1,23 @@
 package ar.edu.udemm.springboot.services.serialComm;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 
 public class SerialPortReader implements SerialPortEventListener {
-	public SerialPortReader(SerialPort serialPort) {
+	
+	private final Logger logger = LoggerFactory.getLogger(SerialPortReader.class);
+			
+	private CommService commService;
+	
+	public SerialPortReader(SerialPort serialPort, CommService commService) {
 		super();
 		this.serialPort = serialPort;
+		this.commService = commService;
 	}
 
 	private SerialPort serialPort;
@@ -18,40 +27,38 @@ public class SerialPortReader implements SerialPortEventListener {
 			int amount = event.getEventValue();
 			String buffer;
 			try {
-				buffer = serialPort.readString();//Bytes(amount);
-				if(amount > 0) {
-//					System.out.print(Integer.toString(amount) + " " + buffer);
-					System.out.print(buffer.replaceAll("F", "").replaceAll("\\n", ""));
+				buffer = serialPort.readString();// Bytes(amount);
+				if (amount > 0) {
+					this.commService.getMediciones().add(getFormattedValue(buffer));
+					logger.info(getFormattedValue(buffer));
 				}
-//				for(int i = 0; i < amount; i++) {
-//					System.out.print(buffer2[i]);
-//				}
 			} catch (SerialPortException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("Fallo lectura port", e);
 			}
 			/*
-			if (event.getEventValue() == 10) {// Check bytes count in the input buffer
-				// Read data, if 10 bytes available
-				try {
-					byte buffer[] = serialPort.readBytes(10);
-					System.out.println(buffer);
-				} catch (SerialPortException ex) {
-					System.out.println(ex);
-				}
-			}*/
+			 * if (event.getEventValue() == 10) {// Check bytes count in the input buffer //
+			 * Read data, if 10 bytes available try { byte buffer[] =
+			 * serialPort.readBytes(10); System.out.println(buffer); } catch
+			 * (SerialPortException ex) { System.out.println(ex); } }
+			 */
 		} else if (event.isCTS()) {// If CTS line has changed state
 			if (event.getEventValue() == 1) {// If line is ON
-				System.out.println("CTS - ON");
+				logger.info("CTS - ON");
 			} else {
-				System.out.println("CTS - OFF");
+				logger.info("CTS - OFF");
 			}
 		} else if (event.isDSR()) {/// If DSR line has changed state
 			if (event.getEventValue() == 1) {// If line is ON
-				System.out.println("DSR - ON");
+				logger.info("DSR - ON");
 			} else {
-				System.out.println("DSR - OFF");
+				logger.info("DSR - OFF");
 			}
 		}
 	}
+
+	private String getFormattedValue(String buffer) {
+		return buffer.replaceAll("F", "").replaceAll("T", "").replaceAll("\\n", "");
+	}
+	
+
 }

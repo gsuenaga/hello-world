@@ -28,40 +28,46 @@ import ar.edu.udemm.springboot.services.serialComm.CommService;
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping({ "/ports" })
-public class HomeController {
+@RequestMapping({ "/regla" })
+public class ReglaController {
 
 //	private final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Autowired
-	private CommService commService;
-
-	@Autowired
-	private PortService portService;
+	private ReglaService reglaService;
 
 	@GetMapping
 	public String home() {
 		return "forward:/index.html";
 	}
 
-	@GetMapping("/portList")
-	public List<Port> getCommList() {
-		return portService.findAll();
+	@GetMapping("/reglaList")
+	public List<Regla> getReglaList() {
+		return reglaService.findAll();
 	}
-
+	
 	@PostMapping
-	public Port create(@RequestBody Port port) {
-		return portService.create(port);
+	public boolean update(@RequestBody List<Regla> regla) {
+		return reglaService.update(regla);
 	}
+//	@GetMapping("/portList")
+//	public List<Port> getCommList() {
+//		return portService.findAll();
+//	}
+//
+//	@PostMapping
+//	public Port create(@RequestBody Port port) {
+//		return portService.create(port);
+//	}
+//	
+//	@PostMapping("/connect")
+//	public String connect(@RequestBody Port port) {
+//		return commService.connect(port);
+//	}
+//	
+//	@PostMapping("/disconnect")
+//	public String disconnect(@RequestBody Port port) {
+//		return commService.disconnect(port);
+//	}
 	
-	@PostMapping("/connect")
-	public String connect(@RequestBody Port port) {
-		return commService.connect(port);
-	}
-	
-	@PostMapping("/disconnect")
-	public String disconnect(@RequestBody Port port) {
-		return commService.disconnect(port);
-	}
-
 }

@@ -36,8 +36,12 @@ public class ReglaServiceImpl implements ReglaService {
 	}
 
 	@Override
-	public Regla update(Regla regla) {
-		return repository.save(regla);
+	public boolean update(List<Regla> regla) {
+		regla.forEach((temp) -> {
+			repository.save(temp);
+		});
+		
+		return true;
 	}
 
 	@Override

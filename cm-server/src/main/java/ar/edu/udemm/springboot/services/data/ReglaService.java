@@ -14,5 +14,5 @@ public interface ReglaService {
 
     Regla findById(int id);
 
-    Regla update(Regla regla);
+    boolean update(List<Regla> regla);
 }

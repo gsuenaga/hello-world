@@ -46,6 +46,23 @@ class StartupHousekeeper {
 		List<Port> portsList = portService.findAll();
 		if(portsList == null || portsList.size() == 0 || portsList.size() != ports.length) {
 			inserteDefaultValuesPorts(ports);
+			logger.info("Se ingresan los ports con valores por defecto.");
+		}else {
+			int cantIgual = 0;
+			for(int i=0; i<ports.length; i++) {
+				for(int j=0; j<portsList.size(); j++) {
+					if (ports[i].equals(portsList.get(j).getPort())) {
+						cantIgual++;;
+					}
+				}
+			}
+			if(cantIgual != ports.length) {
+				portService.deleteAll();
+				inserteDefaultValuesPorts(ports);
+				logger.info("Se borran los datos y se vuelve a ingresar los ports con valores por defecto.");
+			}else {
+				logger.info("Se recuperan los datos de los ports desde la BD.");
+			}
 		}
 	}
 

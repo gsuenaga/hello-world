@@ -1,6 +1,11 @@
 package ar.edu.udemm.springboot.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,13 +22,33 @@ public class SchedulerController {
 
     @Autowired
     private CommService commService;
-    
-//    @Scheduled(fixedRate = 1000)
+
+
+	@Value("${app.scheduler.tiempo.refresco.milisegundos}")
+	private final long cicloDemora = 1000;
+	
+    @Scheduled(fixedRate = cicloDemora)
     public void greeting() throws InterruptedException {
-        if("Conectado".equals(commService.getEstado())) {
+        if("Conectado".equals(commService.getEstado()) && commService.getMediciones().size()>0) {
 //        	commService.getSerialPort().
         	System.out.println("scheduled");
-        	this.template.convertAndSend("/topic/hi", "Hello");
+        	List<String> resultado = commService.getMediciones();
+        	
+        	resultado.removeAll(Arrays.asList("", null));
+        	System.out.println("resultado " + resultado);
+        	
+        	List<String> cleanRes = new ArrayList<String>();
+        	
+    		resultado.forEach((temp) -> {
+    			String x = temp.replaceAll("[^\\w\\s]","");
+    			System.out.println("x " + x);
+    			cleanRes.add(x);
+    		});
+    		
+        	this.template.convertAndSend("/topic/hi", cleanRes);
+
+	        commService.getMediciones().clear();
+//        	this.template.convertAndSend("/topic/hi", "Hello");
         }
     }
 }
