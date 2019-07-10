@@ -37,14 +37,19 @@ public class SchedulerController {
         	resultado.removeAll(Arrays.asList("", null));
         	System.out.println("resultado " + resultado);
         	
-        	List<String> cleanRes = new ArrayList<String>();
+        	StringBuilder  cleanRes = new StringBuilder();
+//        	List<String> cleanRes = new ArrayList<String>();
         	
     		resultado.forEach((temp) -> {
-    			String x = temp.replaceAll("[^\\w\\s]","");
-    			System.out.println("x " + x);
-    			cleanRes.add(x);
+    			System.out.println("sin filtrado " + temp);
+    			String x = temp.replaceAll("[^\\w\\s\\p{Punct}]","");
+
+    			System.out.println("filtrado " + x);
+    			cleanRes.append(x);
+//    			cleanRes.add(x);
     		});
     		
+    		System.out.println("limpio " + cleanRes);
         	this.template.convertAndSend("/topic/hi", cleanRes);
 
 	        commService.getMediciones().clear();

@@ -32,15 +32,15 @@ export class HomeComponent implements OnInit {
   constructor(private webSocketService: WebSocketService) {
   }
 
-  private fieldArray: Array<any> = [];
-  private newAttribute: any = {};
+  // private fieldArray: Array<any> = [];
+  // private newAttribute: any = {};
 
-  addFieldValue() {
-      this.fieldArray.push(this.newAttribute)
-      this.newAttribute = {};
-  }
+  // addFieldValue() {
+  //     this.fieldArray.push(this.newAttribute)
+  //     this.newAttribute = {};
+  // }
 
-  deleteFieldValue(index) {
-      this.fieldArray.splice(index, 1);
-  }
+  // deleteFieldValue(index) {
+  //     this.fieldArray.splice(index, 1);
+  // }
 }
