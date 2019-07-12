@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     this.subscription = this.webSocketService.observablePeople
     .subscribe(item => {
     this.crowd = item;
-    console.log(this.crowd);
+    console.log('crowd: ' + this.crowd);
     });
 
   }

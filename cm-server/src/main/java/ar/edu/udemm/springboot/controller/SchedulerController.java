@@ -37,16 +37,16 @@ public class SchedulerController {
         	resultado.removeAll(Arrays.asList("", null));
         	System.out.println("resultado " + resultado);
         	
-        	StringBuilder  cleanRes = new StringBuilder();
-//        	List<String> cleanRes = new ArrayList<String>();
+//        	StringBuilder  cleanRes = new StringBuilder();
+        	List<String> cleanRes = new ArrayList<String>();
         	
     		resultado.forEach((temp) -> {
     			System.out.println("sin filtrado " + temp);
-    			String x = temp.replaceAll("[^\\w\\s\\p{Punct}]","");
+    			String x = temp.replaceAll("[^\\w\\s\"\\r\\p{Punct}]","");
 
     			System.out.println("filtrado " + x);
-    			cleanRes.append(x);
-//    			cleanRes.add(x);
+//    			cleanRes.append(x);
+    			if(!x.isEmpty() && !x.equals("\r")) cleanRes.add(x);
     		});
     		
     		System.out.println("limpio " + cleanRes);
