@@ -24,4 +24,7 @@ public interface CommService {
 	SerialPort getSerialPort();
 
 	List<String> getMediciones();
+
+	void addMediciones(List<String> x);
+
 }

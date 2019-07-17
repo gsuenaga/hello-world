@@ -1,5 +1,9 @@
 package ar.edu.udemm.springboot.services.serialComm;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,16 +25,19 @@ public class SerialPortReader implements SerialPortEventListener {
 	}
 
 	private SerialPort serialPort;
+//	private List<String> temp = new ArrayList<String>();
 
 	public void serialEvent(SerialPortEvent event) {
 		if (event.isRXCHAR()) {// If data is available
 			int amount = event.getEventValue();
 			String buffer;
+			
 			try {
 				buffer = serialPort.readString();// Bytes(amount);
 				if (amount > 0) {
-					this.commService.getMediciones().add(getFormattedValue(buffer));
-					logger.info(getFormattedValue(buffer));
+//					this.commService.getMediciones().add(getFormattedValue(buffer));
+					this.commService.addMediciones(getFormattedValue(buffer));
+					logger.info(buffer);
 				}
 			} catch (SerialPortException e) {
 				logger.error("Fallo lectura port", e);
@@ -56,9 +63,15 @@ public class SerialPortReader implements SerialPortEventListener {
 		}
 	}
 
-	private String getFormattedValue(String buffer) {
-		return buffer.replaceAll("F", "").replaceAll("T", "").replaceAll("\\n", "");
+	private List<String> getFormattedValue(String buffer) {
+		
+		String[] arr =  buffer.replaceAll("F", "").replaceAll("T", "").replaceAll("\\n", "").split("\\r");
+		List<String> list =  Arrays.asList(arr);
+		return list;
 	}
+//	private String getFormattedValue(String buffer) {
+//		return buffer.replaceAll("F", "").replaceAll("T", "").replaceAll("\\n", "");
+//	}
 	
 
 }

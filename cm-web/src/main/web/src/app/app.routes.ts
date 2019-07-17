@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { DetailComponent } from './components/configuracion/detail.component';
-import { SerialPortComponent } from './components/configuracion/serialport.component';
+import { SerialPortComponent } from './components/serialport/serialport.component';
 import { ReglaComponent } from './components/configuracion/regla.component';
 
 const routes: Routes = [

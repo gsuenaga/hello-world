@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // import { Router } from '@angular/router';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { SerialPort } from '../../models/serialport.model';
-import { SerialPortService } from './serialport.service';
+import { SerialPortService } from '../serialport/serialport.service';
 
 @Component({
   selector: 'app-detail',

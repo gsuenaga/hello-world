@@ -56,10 +56,10 @@ const httpOptions = {
     }
 
     showGreeting(message) {
-      console.log('antes : ' + message);
-      message = message.replace('[', '\\r').replace(']', '\\r').replace(',', '').replace('""', '').replace('"', '');
-      message = message.split('\\r').filter(item => item !== '' && item !== '"');
-      console.log('despues : ' + message);
+      // console.log('antes : ' + message);
+      // message = message.replace('[', '\\r').replace(']', '\\r').replace(',', '').replace('""', '').replace('"', '');
+      // message = message.split('\\r').filter(item => item !== '' && item !== '"');
+      // console.log('despues : ' + message);
       this.greetings.push(message);
 
       this.people.push(message);

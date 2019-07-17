@@ -1,9 +1,9 @@
 package ar.edu.udemm.springboot.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -17,43 +17,26 @@ import ar.edu.udemm.springboot.services.serialComm.CommService;
 @Controller
 public class SchedulerController {
 
-    @Autowired
-    private SimpMessagingTemplate template;
+	private final Logger logger = LoggerFactory.getLogger(SchedulerController.class);
+	
+	@Autowired
+	private SimpMessagingTemplate template;
 
-    @Autowired
-    private CommService commService;
-
+	@Autowired
+	private CommService commService;
 
 	@Value("${app.scheduler.tiempo.refresco.milisegundos}")
 	private final long cicloDemora = 1000;
-	
-    @Scheduled(fixedRate = cicloDemora)
-    public void greeting() throws InterruptedException {
-        if("Conectado".equals(commService.getEstado()) && commService.getMediciones().size()>0) {
-//        	commService.getSerialPort().
-        	System.out.println("scheduled");
-        	List<String> resultado = commService.getMediciones();
-        	
-        	resultado.removeAll(Arrays.asList("", null));
-        	System.out.println("resultado " + resultado);
-        	
-//        	StringBuilder  cleanRes = new StringBuilder();
-        	List<String> cleanRes = new ArrayList<String>();
-        	
-    		resultado.forEach((temp) -> {
-    			System.out.println("sin filtrado " + temp);
-    			String x = temp.replaceAll("[^\\w\\s\"\\r\\p{Punct}]","");
 
-    			System.out.println("filtrado " + x);
-//    			cleanRes.append(x);
-    			if(!x.isEmpty() && !x.equals("\r")) cleanRes.add(x);
-    		});
-    		
-    		System.out.println("limpio " + cleanRes);
-        	this.template.convertAndSend("/topic/hi", cleanRes);
+	@Scheduled(fixedRate = cicloDemora)
+	public void greeting() throws InterruptedException {
+		if ("Conectado".equals(commService.getEstado())) {
+			List<String> resultado = commService.getMediciones();
 
-	        commService.getMediciones().clear();
-//        	this.template.convertAndSend("/topic/hi", "Hello");
-        }
-    }
+			if(resultado != null) {
+				this.template.convertAndSend("/topic/hi", resultado);
+				logger.info("Enviado : " + resultado);
+			}
+		}
+	}
 }
