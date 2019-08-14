@@ -12,13 +12,14 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import ar.edu.udemm.springboot.services.serialComm.CommService;
+import ar.edu.udemm.springboot.services.serialComm.Medicion;
 
 @EnableScheduling
 @Controller
 public class SchedulerController {
 
 	private final Logger logger = LoggerFactory.getLogger(SchedulerController.class);
-	
+
 	@Autowired
 	private SimpMessagingTemplate template;
 
@@ -31,9 +32,10 @@ public class SchedulerController {
 	@Scheduled(fixedRate = cicloDemora)
 	public void greeting() throws InterruptedException {
 		if ("Conectado".equals(commService.getEstado())) {
-			List<String> resultado = commService.getMediciones();
+			List<Medicion> resultado = commService.getMediciones();
+//			List<String> resultado = commService.getMediciones();
 
-			if(resultado != null) {
+			if (resultado != null) {
 				this.template.convertAndSend("/topic/hi", resultado);
 				logger.info("Enviado : " + resultado);
 			}

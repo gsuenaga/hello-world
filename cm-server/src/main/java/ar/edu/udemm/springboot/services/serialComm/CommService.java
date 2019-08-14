@@ -23,8 +23,13 @@ public interface CommService {
 
 	SerialPort getSerialPort();
 
-	List<String> getMediciones();
+//	List<String> getMediciones();
+	List<Medicion> getMediciones();
 
 	void addMediciones(List<String> x);
+
+//	void addMediciones(Medicion mediciones);
+
+//	List<Medicion> getMediciones2();
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
@@ -13,11 +14,13 @@ import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 
 public class SerialPortReader implements SerialPortEventListener {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(SerialPortReader.class);
-			
+
 	private CommService commService;
-	
+
+	List<String> medicionesArray = new ArrayList<String>();
+
 	public SerialPortReader(SerialPort serialPort, CommService commService) {
 		super();
 		this.serialPort = serialPort;
@@ -27,16 +30,34 @@ public class SerialPortReader implements SerialPortEventListener {
 	private SerialPort serialPort;
 //	private List<String> temp = new ArrayList<String>();
 
+//	private long id;
+
 	public void serialEvent(SerialPortEvent event) {
 		if (event.isRXCHAR()) {// If data is available
 			int amount = event.getEventValue();
 			String buffer;
-			
+
 			try {
 				buffer = serialPort.readString();// Bytes(amount);
 				if (amount > 0) {
 //					this.commService.getMediciones().add(getFormattedValue(buffer));
-					this.commService.addMediciones(getFormattedValue(buffer));
+
+					if (medicionesArray.size() == 0) {
+						medicionesArray = getFormattedValue(buffer);
+					} else {
+						try {
+							medicionesArray = new ArrayList<String>(medicionesArray);
+							medicionesArray.addAll(getFormattedValue(buffer));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+
+					if (medicionesArray.size() > 4) {
+						this.commService.addMediciones(medicionesArray);
+//						this.commService.addMediciones(getFormattedValue(buffer));
+						medicionesArray.clear();
+					}
 					logger.info(buffer);
 				}
 			} catch (SerialPortException e) {
@@ -64,14 +85,19 @@ public class SerialPortReader implements SerialPortEventListener {
 	}
 
 	private List<String> getFormattedValue(String buffer) {
-		
-		String[] arr =  buffer.replaceAll("F", "").replaceAll("T", "").replaceAll("\\n", "").split("\\r");
-		List<String> list =  Arrays.asList(arr);
+//	private Medicion getFormattedValue(String buffer) {
+
+		String[] arr = buffer.replaceAll("F", "").replaceAll("T", "").replaceAll("\\n", "").split("\\r");
+		List<String> list = Arrays.asList(arr);
+		// cambiar el array de string por array de objeto con id y medicion
+//		for (int i=0; i < arr.length; i++) {
+//			mediciones = new Medicion(id++, arr[0], arr[1], arr[2], arr[3], arr[4]);
+//		}
 		return list;
+//		return mediciones;
 	}
 //	private String getFormattedValue(String buffer) {
 //		return buffer.replaceAll("F", "").replaceAll("T", "").replaceAll("\\n", "");
 //	}
-	
 
 }

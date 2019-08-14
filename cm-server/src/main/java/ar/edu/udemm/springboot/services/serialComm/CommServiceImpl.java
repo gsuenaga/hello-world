@@ -21,7 +21,10 @@ public class CommServiceImpl implements CommService {
 
 	private String estado = "Desconectado";
 
-	private List<String> mediciones = new ArrayList<String>();
+//	private List<String> mediciones = new ArrayList<String>();
+	private List<Medicion> mediciones = new ArrayList<Medicion>();
+
+	private long id = 0;
 
 	private final Object lock = new Object();
 
@@ -116,19 +119,49 @@ public class CommServiceImpl implements CommService {
 	@Override
 	public void addMediciones(List<String> mediciones) {
 		synchronized (lock) {
-			this.mediciones.addAll(mediciones);
+			this.mediciones.add(new Medicion(this.id++, mediciones.get(0), mediciones.get(1),
+					mediciones.get(2), mediciones.get(3), mediciones.get(4)));
 		}
 	}
 
+//	@Override
+//	public void addMediciones(List<String> mediciones) {
+//		synchronized (lock) {
+//			this.mediciones.addAll(mediciones);
+//		}
+//	}
+
 	@Override
-	public List<String> getMediciones() {
+	public List<Medicion> getMediciones() {
 		if (this.mediciones.size() > 0) {
 			synchronized (lock) {
-				List<String> temp = new ArrayList<String>(this.mediciones);
+				List<Medicion> temp = new ArrayList<Medicion>(this.mediciones);
 				this.mediciones.clear();
 				return temp;
 			}
 		}
 		return null;
 	}
+//	@Override
+//	public List<String> getMediciones() {
+//		if (this.mediciones.size() > 0) {
+//			synchronized (lock) {
+//				List<String> temp = new ArrayList<String>(this.mediciones);
+//				this.mediciones.clear();
+//				return temp;
+//			}
+//		}
+//		return null;
+//	}
+//	@Override
+//	public List<Medicion> getMediciones2() {
+//		if (this.mediciones2.size() > 4) {
+//			synchronized (lock) {
+//				List<Medicion> temp = new ArrayList<Medicion>(this.mediciones2);
+//				this.mediciones2.clear();
+//				return temp;
+//			}
+//		}
+//		return null;
+//	}
 }
