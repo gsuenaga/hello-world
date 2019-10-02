@@ -28,6 +28,10 @@ public interface CommService {
 
 	void addMediciones(List<String> x);
 
+	void addMedicion(List<String> mediciones);
+
+	Medicion getMedicion();
+
 //	void addMediciones(Medicion mediciones);
 
 //	List<Medicion> getMediciones2();

@@ -32,9 +32,9 @@ public class SchedulerController {
 	@Scheduled(fixedRate = cicloDemora)
 	public void greeting() throws InterruptedException {
 		if ("Conectado".equals(commService.getEstado())) {
-			List<Medicion> resultado = commService.getMediciones();
-//			List<String> resultado = commService.getMediciones();
+//			List<Medicion> resultado = commService.getMediciones();
 
+			Medicion resultado = commService.getMedicion();
 			if (resultado != null) {
 				this.template.convertAndSend("/topic/hi", resultado);
 				logger.info("Enviado : " + resultado);

@@ -21,8 +21,8 @@ public class CommServiceImpl implements CommService {
 
 	private String estado = "Desconectado";
 
-//	private List<String> mediciones = new ArrayList<String>();
 	private List<Medicion> mediciones = new ArrayList<Medicion>();
+	private Medicion medicion;
 
 	private long id = 0;
 
@@ -124,6 +124,13 @@ public class CommServiceImpl implements CommService {
 		}
 	}
 
+	@Override
+	public void addMedicion(List<String> mediciones) {
+		synchronized (lock) {
+			this.medicion = new Medicion(this.id++, mediciones.get(0), mediciones.get(1),
+					mediciones.get(2), mediciones.get(3), mediciones.get(4));
+		}
+	}
 //	@Override
 //	public void addMediciones(List<String> mediciones) {
 //		synchronized (lock) {
@@ -142,7 +149,13 @@ public class CommServiceImpl implements CommService {
 		}
 		return null;
 	}
-//	@Override
+
+	@Override
+	public Medicion getMedicion() {
+		return this.medicion;
+	}
+	
+	
 //	public List<String> getMediciones() {
 //		if (this.mediciones.size() > 0) {
 //			synchronized (lock) {
