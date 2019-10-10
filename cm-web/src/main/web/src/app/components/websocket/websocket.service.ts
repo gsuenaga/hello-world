@@ -19,10 +19,13 @@ const httpOptions = {
 
     private people: Array<String>;
     public observablePeople: BehaviorSubject<String[]>;
-
+    private message2: Array<String>;
+    
+   
     constructor(private http: HttpClient) {
       this.people = new Array<String>();
       this.observablePeople = new BehaviorSubject<String[]>(this.people);
+      this.message2 = new Array<String>();
     }
 
     eventChange() {
@@ -56,13 +59,14 @@ const httpOptions = {
     }
 
     showGreeting(message) {
-      // console.log('antes : ' + message);
+      console.log('antes : ' + message);
       // message = message.replace('[', '\\r').replace(']', '\\r').replace(',', '').replace('""', '').replace('"', '');
       // message = message.split('\\r').filter(item => item !== '' && item !== '"');
-      // console.log('despues : ' + message);
-      this.greetings.push(message);
-
-      this.people.push(message);
+      this.message2 = message.split(':');
+      console.log('despues : ' + this.message2);
+      this.people=this.message2;
+      // this.greetings.push(this.message2);
+      // this.people.push(message2);
       this.eventChange();
     }
 

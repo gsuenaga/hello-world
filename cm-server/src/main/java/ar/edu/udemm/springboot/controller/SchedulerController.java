@@ -37,6 +37,7 @@ public class SchedulerController {
 			Medicion resultado = commService.getMedicion();
 			if (resultado != null) {
 				this.template.convertAndSend("/topic/hi", resultado);
+				commService.clearMedicion();
 				logger.info("Enviado : " + resultado);
 			}
 		}

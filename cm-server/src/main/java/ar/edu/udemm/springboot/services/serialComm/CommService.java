@@ -32,6 +32,8 @@ public interface CommService {
 
 	Medicion getMedicion();
 
+	void clearMedicion();
+
 //	void addMediciones(Medicion mediciones);
 
 //	List<Medicion> getMediciones2();

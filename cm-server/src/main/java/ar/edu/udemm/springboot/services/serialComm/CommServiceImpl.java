@@ -155,7 +155,10 @@ public class CommServiceImpl implements CommService {
 		return this.medicion;
 	}
 	
-	
+	@Override
+	public void clearMedicion() {
+		this.medicion = null;
+	}
 //	public List<String> getMediciones() {
 //		if (this.mediciones.size() > 0) {
 //			synchronized (lock) {

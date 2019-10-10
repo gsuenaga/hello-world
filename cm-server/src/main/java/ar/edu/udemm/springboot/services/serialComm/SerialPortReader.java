@@ -54,7 +54,8 @@ public class SerialPortReader implements SerialPortEventListener {
 					}
 
 					if (medicionesArray.size() > 4) {
-						this.commService.addMediciones(medicionesArray);
+						this.commService.addMedicion(medicionesArray);
+//						this.commService.addMediciones(medicionesArray);
 //						this.commService.addMediciones(getFormattedValue(buffer));
 						medicionesArray.clear();
 					}
