@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   private subscription: Subscription;
 
-  public crowd: String[];
+  public crowd: Number[];
 
   ngOnInit(): void {
     this.webSocketService.connectWS();
