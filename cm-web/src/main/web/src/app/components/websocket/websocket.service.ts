@@ -17,7 +17,6 @@ export class WebSocketService {
   greetings: string[] = [];
   disabled = true;
 
-  // private people: Array<String>;
   private people: Array<Number>;
   public observablePeople: BehaviorSubject<Number[]>;
   private message2: Array<String>;
@@ -44,7 +43,6 @@ export class WebSocketService {
         console.log('Connected: ' + frame);
 
         _this.stompClient.subscribe('/topic/hi', function (hello) {
-          // _this.showGreeting(JSON.parse(hello.body).greeting);
           _this.showGreeting(hello.body);
         });
       });
@@ -62,8 +60,7 @@ export class WebSocketService {
   showGreeting(message) {
     var people2 = new Array<Number>();
     console.log('antes : ' + message);
-    var re = /\,/gi;
-    this.message2 = message.replace(re, ':').replace('{','').replace('}','').split(':');
+    this.message2 = message.replace(/\,/gi, ':').replace('{','').replace('}','').split(':');
     console.log('despues : ' + this.message2);
     this.message2.forEach(function (value) {
 
@@ -73,8 +70,6 @@ export class WebSocketService {
       
     });
     this.people = people2;
-    // this.greetings.push(this.message2);
-
     this.eventChange();
   }
 

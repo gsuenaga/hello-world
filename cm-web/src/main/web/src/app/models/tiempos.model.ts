@@ -1,8 +1,8 @@
 export class Tiempos {
-    id: string;
-    t1: string;
-    t2: string;
-    t3: string;
-    t4: string;
-    t5: string;
+    id: Number;
+    t1: Number;
+    t2: Number;
+    t3: Number;
+    t4: Number;
+    t5: Number;
   }
