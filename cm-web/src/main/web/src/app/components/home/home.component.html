@@ -42,8 +42,14 @@
                 <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button>
             </td>
         </tr> -->
-        <tr>
-            <td *ngFor="let field of crowd; let i = index">{{field}}</td>
+        <tr *ngFor="let tiempo of tiempos">
+            <!--<td *ngFor="let field of crowd; let i = index">{{field}}</td>-->
+            <td>{{tiempo.id}}</td>
+            <td>{{tiempo.t1}}</td>
+            <td>{{tiempo.t2}}</td>
+            <td>{{tiempo.t3}}</td>
+            <td>{{tiempo.t4}}</td>
+            <td>{{tiempo.t5}}</td>
         </tr>
     </tbody>
 </table>

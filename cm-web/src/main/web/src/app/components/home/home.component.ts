@@ -11,36 +11,34 @@ import { Subscription } from 'rxjs/internal/Subscription';
 })
 export class HomeComponent implements OnInit {
 
-  tiempos: Tiempos[];
+  public tiempos: Tiempos[];
   // portId: number = null;
   // tiempo: Tiempos;
 
   private subscription: Subscription;
 
-  public crowd: Number[];
+  // public crowd: Number[];
 
   ngOnInit(): void {
-    
-    
     
     this.webSocketService.connectWS();
 
     this.subscription = this.webSocketService.observablePeople
     .subscribe(item => {
-      // var tiempo = new Tiempos();
-      // tiempo.id = item[0];
-      // console.log(item[1]);
-      // tiempo.t1 = item[1];
-      // tiempo.t2 = item[2];
-      // tiempo.t3 = item[3];
-      // tiempo.t4 = item[4];
-      // tiempo.t5 = item[5];
-      // this.tiempos.push(tiempo);
+      // this.crowd = item;
+      // console.log('crowd: ' + this.crowd);
+      if(item[0]!=null){
+        var tiempo = new Tiempos();
+        tiempo.id = item[0];
+        tiempo.t1 = item[1];
+        tiempo.t2 = item[2];
+        tiempo.t3 = item[3];
+        tiempo.t4 = item[4];
+        tiempo.t5 = item[5];
+        this.tiempos.push(tiempo);
+        console.log(this.tiempos);
+      }
 
-      this.crowd = item;
-    
-
-    // console.log('crowd: ' + this.crowd);
     });
 
   }
