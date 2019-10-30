@@ -16,7 +16,7 @@ export class SerialPortComponent implements OnInit {
 
   ports: SerialPort[];
   portId: number = null;
-  port: SerialPort;
+  porta: SerialPort;
 
   private stompClient = null;
   greetings: string[] = [];
@@ -43,19 +43,20 @@ export class SerialPortComponent implements OnInit {
       });
   }
 
-  updateShowActions(): void {
+  updateShowActions(port: SerialPort): void {
     if (this.estado === 'Conectado') {
       this.showActions = true;
     } else {
       this.showActions = false;
     }
+    this.porta = port;
   }
 
   connectPort(port: SerialPort): void {
     this.serialportService.connectPort(port)
       .subscribe( data => {
         this.estado = data;
-        this.updateShowActions();
+        this.updateShowActions(port);
           console.log(port.port + ':' + data);
       },
       response => {
@@ -71,7 +72,7 @@ export class SerialPortComponent implements OnInit {
     this.serialportService.disconnectPort(port)
       .subscribe( data => {
         this.estado = data;
-        this.updateShowActions();
+        this.updateShowActions(port);
           console.log(data);
       },
       response => {

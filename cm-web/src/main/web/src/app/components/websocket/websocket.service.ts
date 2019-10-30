@@ -17,14 +17,14 @@ export class WebSocketService {
   greetings: string[] = [];
   disabled = true;
 
-  private people: Array<Number>;
-  public observablePeople: BehaviorSubject<Number[]>;
+  private people: Array<number>;
+  public observablePeople: BehaviorSubject<number[]>;
   private message2: Array<String>;
 
 
   constructor(private http: HttpClient) {
-    this.people = new Array<Number>();
-    this.observablePeople = new BehaviorSubject<Number[]>(this.people);
+    this.people = new Array<number>();
+    this.observablePeople = new BehaviorSubject<number[]>(this.people);
     this.message2 = new Array<String>();
   }
 
@@ -58,16 +58,16 @@ export class WebSocketService {
   }
 
   showGreeting(message) {
-    var people2 = new Array<Number>();
+    const people2 = new Array<number>();
     console.log('antes : ' + message);
-    this.message2 = message.replace(/\,/gi, ':').replace('{','').replace('}','').split(':');
+    this.message2 = message.replace(/\,/gi, ':').replace('{', '').replace('}', '').split(':');
     console.log('despues : ' + this.message2);
     this.message2.forEach(function (value) {
 
-      if (value.search(/medicion|id/gi) == -1) {
+      if (value.search(/medicion|id/gi) === -1) {
         people2.push(+value.replace(/\"/gi, ''));
       }
-      
+
     });
     this.people = people2;
     this.eventChange();
