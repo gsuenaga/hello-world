@@ -7,6 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
@@ -25,9 +26,15 @@ public class SerialPortReader implements SerialPortEventListener {
 		super();
 		this.serialPort = serialPort;
 		this.commService = commService;
+		this.acumulado = "";
+		this.temp = "";
 	}
 
 	private SerialPort serialPort;
+
+	private String acumulado;
+
+	private String temp;
 //	private List<String> temp = new ArrayList<String>();
 
 //	private long id;
@@ -86,19 +93,23 @@ public class SerialPortReader implements SerialPortEventListener {
 	}
 
 	private List<String> getFormattedValue(String buffer) {
-//	private Medicion getFormattedValue(String buffer) {
-
-		String[] arr = buffer.replaceAll("F", "").replaceAll("T", "").replaceAll("\\n", "").split("\\r");
-		List<String> list = Arrays.asList(arr);
-		// cambiar el array de string por array de objeto con id y medicion
-//		for (int i=0; i < arr.length; i++) {
-//			mediciones = new Medicion(id++, arr[0], arr[1], arr[2], arr[3], arr[4]);
-//		}
+		List<String> list = null;
+		int occuranceF = StringUtils.countOccurrencesOf(buffer, "F");
+		int occuranceT = StringUtils.countOccurrencesOf(buffer, "T");
+		if(occuranceF==occuranceT) {
+			this.acumulado=this.temp.concat(buffer);
+			
+			int ocurranceA = StringUtils.countOccurrencesOf(this.acumulado, "T");
+			if(ocurranceA==5) {
+				this.temp="";
+				String[] arr = buffer.replaceAll("F", "").replaceAll("T", "").replaceAll("\\n", "").split("\\r");
+				list = Arrays.asList(arr);
+			}
+			
+		}else {
+			this.temp.concat(buffer);
+		}
 		return list;
-//		return mediciones;
 	}
-//	private String getFormattedValue(String buffer) {
-//		return buffer.replaceAll("F", "").replaceAll("T", "").replaceAll("\\n", "");
-//	}
 
 }
