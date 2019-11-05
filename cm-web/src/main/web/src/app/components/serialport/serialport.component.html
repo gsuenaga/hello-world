@@ -5,6 +5,7 @@
         <thead>
             <tr>
                 <th style="display:none">Id</th>
+                <th>Selección</th>
                 <th>Puerto</th>
                 <th>Velocidad</th>
                 <th>Bits de datos</th>
@@ -15,6 +16,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let port of ports">
+                <td><input class="form-check-input" type="radio" name={{port.id}} id={{port.id}} value={{port.id}}></td>
                 <td style="display:none">{{port.id}}</td>
                 <td>{{port.port}}</td>
                 <td>{{port.baudrate}}</td>
@@ -32,6 +34,6 @@
                 <td *ngIf="showActions"><button class="btn btn-success btn-sm" (click)="disconnectPort(port)">Desconectar</button></td>
             </tr>
         </tbody>
-        {{this.porta.id}}
+        <!-- {{this.portSelected.id}} -->
     </table>
 </div>

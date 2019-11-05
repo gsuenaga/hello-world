@@ -1,7 +1,5 @@
 package ar.edu.udemm.springboot.controller;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,7 @@ public class SchedulerController {
 	private CommService commService;
 
 	@Value("${app.scheduler.tiempo.refresco.milisegundos}")
-	private final long cicloDemora = 1000;
+	private final long cicloDemora = 500;
 
 	@Scheduled(fixedRate = cicloDemora)
 	public void greeting() throws InterruptedException {
@@ -38,7 +36,7 @@ public class SchedulerController {
 			if (resultado != null) {
 				this.template.convertAndSend("/topic/hi", resultado);
 				commService.clearMedicion();
-				logger.info("Enviado : " + resultado);
+				logger.info("Enviado : " + resultado.toString());
 			}
 		}
 	}

@@ -61,6 +61,12 @@ public class Medicion {
 		this.medicion5 = medicion5;
 	}
 
+	@Override
+	public String toString() {
+		return "<" + this.medicion1 + ">" + "<" + this.medicion2 + ">" + "<" + this.medicion3 + ">" + "<"
+				+ this.medicion4 + ">" + "<" + this.medicion5 + ">";
+	}
+
 	private long id;
 	private String medicion1;
 	private String medicion2;

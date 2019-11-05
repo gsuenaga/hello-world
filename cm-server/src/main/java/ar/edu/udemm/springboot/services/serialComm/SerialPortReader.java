@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import jssc.SerialPort;
@@ -22,22 +21,20 @@ public class SerialPortReader implements SerialPortEventListener {
 
 	List<String> medicionesArray = new ArrayList<String>();
 
+	private SerialPort serialPort;
+
+	private String temp;
+
+	private int cuenta;
+
 	public SerialPortReader(SerialPort serialPort, CommService commService) {
 		super();
 		this.serialPort = serialPort;
 		this.commService = commService;
-		this.acumulado = "";
 		this.temp = "";
+		this.cuenta = 0;
 	}
 
-	private SerialPort serialPort;
-
-	private String acumulado;
-
-	private String temp;
-//	private List<String> temp = new ArrayList<String>();
-
-//	private long id;
 
 	public void serialEvent(SerialPortEvent event) {
 		if (event.isRXCHAR()) {// If data is available
@@ -47,10 +44,9 @@ public class SerialPortReader implements SerialPortEventListener {
 			try {
 				buffer = serialPort.readString();// Bytes(amount);
 				if (amount > 0) {
-//					this.commService.getMediciones().add(getFormattedValue(buffer));
 
-					if (medicionesArray.size() == 0) {
-						medicionesArray = getFormattedValue(buffer);
+					if (this.cuenta++ == 0) {
+						getFormattedValue(buffer);
 					} else {
 						try {
 							medicionesArray = new ArrayList<String>(medicionesArray);
@@ -58,12 +54,11 @@ public class SerialPortReader implements SerialPortEventListener {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
+						this.cuenta = 0;
 					}
 
 					if (medicionesArray.size() > 4) {
 						this.commService.addMedicion(medicionesArray);
-//						this.commService.addMediciones(medicionesArray);
-//						this.commService.addMediciones(getFormattedValue(buffer));
 						medicionesArray.clear();
 					}
 					logger.info(buffer);
@@ -93,21 +88,21 @@ public class SerialPortReader implements SerialPortEventListener {
 	}
 
 	private List<String> getFormattedValue(String buffer) {
-		List<String> list = null;
+		List<String> list = new ArrayList<String>();
 		int occuranceF = StringUtils.countOccurrencesOf(buffer, "F");
 		int occuranceT = StringUtils.countOccurrencesOf(buffer, "T");
-		if(occuranceF==occuranceT) {
-			this.acumulado=this.temp.concat(buffer);
-			
-			int ocurranceA = StringUtils.countOccurrencesOf(this.acumulado, "T");
-			if(ocurranceA==5) {
-				this.temp="";
-				String[] arr = buffer.replaceAll("F", "").replaceAll("T", "").replaceAll("\\n", "").split("\\r");
+		if (occuranceF == occuranceT || this.temp.length() > 0) {
+			this.temp = this.temp + buffer;
+
+			int ocurranceA = StringUtils.countOccurrencesOf(this.temp, "T");
+			if (ocurranceA == 5) {
+				String[] arr = this.temp.replaceAll("F", "").replaceAll("T", "").replaceAll("\\n", "").split("\\r");
 				list = Arrays.asList(arr);
+				this.temp = "";
 			}
-			
-		}else {
-			this.temp.concat(buffer);
+
+		} else {
+			this.temp = this.temp + buffer;
 		}
 		return list;
 	}
