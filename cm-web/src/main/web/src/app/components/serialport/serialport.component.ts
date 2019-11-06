@@ -33,6 +33,10 @@ export class SerialPortComponent implements OnInit {
       .subscribe( data => {
         this.ports = data;
         console.log(data);
+        this.ports.forEach(function(item){
+          item.active = false;
+          item.state = 'Desconectado';
+        });  
       });
   }
 
@@ -46,8 +50,12 @@ export class SerialPortComponent implements OnInit {
   updateShowActions(port: SerialPort): void {
     if (this.estado === 'Conectado') {
       this.showActions = true;
+      port.active = true;
+      port.state = 'Conectado';
     } else {
       this.showActions = false;
+      port.active = false;
+      port.state = 'Desconectado';
     }
     this.portSelected = port;
   }
