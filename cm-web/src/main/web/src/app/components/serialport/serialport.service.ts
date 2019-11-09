@@ -30,7 +30,7 @@ export class SerialPortService {
     return this.http.post<SerialPort>(this.serialPortUrl, port);
   }
 
-  public connectPort(port) {
+   public connectPort(port) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
     return this.http.post<string>(this.serialPortUrl + '/connect', port, { headers,  responseType: 'text' as 'json' });

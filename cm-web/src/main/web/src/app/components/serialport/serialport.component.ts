@@ -47,6 +47,7 @@ export class SerialPortComponent implements OnInit {
       });
   }
 
+
   updateShowActions(port: SerialPort): void {
     if (this.estado === 'Conectado') {
       this.showActions = true;

@@ -83,6 +83,7 @@ public class CommServiceImpl implements CommService {
 			}
 		} catch (SerialPortException ex) {
 			logger.error(ex.getMessage());
+			this.estado = "Desconectado";
 		}
 		logger.info("estado :" + this.estado);
 		return this.estado;
