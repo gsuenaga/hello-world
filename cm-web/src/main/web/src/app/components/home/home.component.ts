@@ -38,16 +38,16 @@ export class HomeComponent implements OnInit {
       if (item[0] != null) {
         const tiempo = new Tiempos();
         tiempo.id = item[0];
-        tiempo.t1 = item[1];
-        tiempo.t2 = item[2];
-        tiempo.t3 = item[3];
-        tiempo.t4 = item[4];
-        tiempo.t5 = item[5];
-        tiempo.v1 = Math.round(item[1] / +this.objetoRegla[0].distancia * 100) / 100;
-        tiempo.v2 = Math.round(item[2] / +this.objetoRegla[1].distancia * 100) / 100;
-        tiempo.v3 = Math.round(item[3] / +this.objetoRegla[2].distancia * 100) / 100;
-        tiempo.v4 = Math.round(item[4] / +this.objetoRegla[3].distancia * 100) / 100;
-        tiempo.v5 = Math.round(item[5] / +this.objetoRegla[4].distancia * 100) / 100;
+        tiempo.t1 = item[1] / 1000;
+        tiempo.t2 = item[2] / 1000;
+        tiempo.t3 = item[3] / 1000;
+        tiempo.t4 = item[4] / 1000;
+        tiempo.t5 = item[5] / 1000;
+        tiempo.v1 = Math.round(+this.objetoRegla[0].distancia * 1000000 / item[1]) / 1000;
+        tiempo.v2 = Math.round(+this.objetoRegla[1].distancia * 1000000 / item[2]) / 1000;
+        tiempo.v3 = Math.round(+this.objetoRegla[2].distancia * 1000000 / item[3]) / 1000;
+        tiempo.v4 = Math.round(+this.objetoRegla[3].distancia * 1000000 / item[4]) / 1000;
+        tiempo.v5 = Math.round(+this.objetoRegla[4].distancia * 1000000 / item[5]) / 1000;
         this.tiempos.push(tiempo);
         console.log(this.tiempos);
         console.log(+this.objetoRegla[0]);
