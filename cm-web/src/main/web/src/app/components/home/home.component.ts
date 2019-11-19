@@ -76,6 +76,20 @@ export class HomeComponent implements OnInit {
             data: [],
             backgroundColor: '#168ede',
             borderColor: '#168ede'
+          },
+          {
+            label: 'Data',
+            fill: false,
+            data: [],
+            backgroundColor: '#de162a',
+            borderColor: '#de162a'
+          },
+          {
+            label: 'Data',
+            fill: false,
+            data: [],
+            backgroundColor: '#2ade16',
+            borderColor: '#2ade16'
           }
         ]
       },
