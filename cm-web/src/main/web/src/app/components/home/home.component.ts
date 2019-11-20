@@ -71,21 +71,70 @@ export class HomeComponent implements OnInit {
         labels: [],
         datasets: [
           {
-            label: 'Data',
+            label: '1',
             fill: false,
             data: [],
             backgroundColor: '#168ede',
             borderColor: '#168ede'
           },
           {
-            label: 'Data',
+            label: '2',
             fill: false,
             data: [],
             backgroundColor: '#de162a',
             borderColor: '#de162a'
           },
           {
-            label: 'Data',
+            label: '3',
+            fill: false,
+            data: [],
+            backgroundColor: '#988a0f',
+            borderColor: '#988a0f'
+          },
+          {
+            label: '4',
+            fill: false,
+            data: [],
+            backgroundColor: '#ffffff',
+            borderColor: '#ffffff'
+          },
+          {
+            label: '5',
+            fill: false,
+            data: [],
+            backgroundColor: '#0f988a',
+            borderColor: '#0f988a'
+          },
+          {
+            label: '6',
+            fill: false,
+            data: [],
+            backgroundColor: '#de6716',
+            borderColor: '#de6716'
+          },
+          {
+            label: '7',
+            fill: false,
+            data: [],
+            backgroundColor: '#d0a0d0',
+            borderColor: '#d0a0d0'
+          },
+          {
+            label: '8',
+            fill: false,
+            data: [],
+            backgroundColor: '#8b0f98',
+            borderColor: '#8b0f98'
+          },
+          {
+            label: '9',
+            fill: false,
+            data: [],
+            backgroundColor: '#decb16',
+            borderColor: '#decb16'
+          },
+          {
+            label: '10',
             fill: false,
             data: [],
             backgroundColor: '#2ade16',
@@ -132,14 +181,15 @@ export class HomeComponent implements OnInit {
     // let chartTime: any = new Date();
     
     // const tiempo = this.tiempos.pop();
-console.log( 'tiempo' + tiempo);
+    console.log( 'tiempo' + tiempo);
 
     // chartTime = chartTime.getHours() + ':' + ((chartTime.getMinutes() < 10) ? '0' + chartTime.getMinutes() : chartTime.getMinutes()) + ':' + ((chartTime.getSeconds() < 10) ? '0' + chartTime.getSeconds() : chartTime.getSeconds());
     // if (this.chart.data.labels.length > 15) {
     //   this.chart.data.labels.shift();
     //   this.chart.data.datasets[0].data.shift();
     // }
-    this.chart.data.labels.push(tiempo.t1);
+
+    this.chart.data.labels.push(Math.round(+tiempo.t1 * 1000) / 1000);
     this.chart.data.datasets[this.nroMed].data.push(tiempo.v1);
     this.chart.data.labels.push(tiempo.t1 + tiempo.t2);
     this.chart.data.datasets[this.nroMed].data.push(tiempo.v2);
