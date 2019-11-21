@@ -148,7 +148,7 @@ export class HomeComponent implements OnInit {
         },
         legend: {
           display: true,
-          position: 'bottom',
+          position: 'right',
           labels: {
             fontColor: 'white'
           }
