@@ -188,16 +188,16 @@ export class HomeComponent implements OnInit {
     //   this.chart.data.labels.shift();
     //   this.chart.data.datasets[0].data.shift();
     // }
-
-    this.chart.data.labels.push(Math.round(+tiempo.t1 * 1000) / 1000);
+    this.chart.data.labels = [];
+    this.chart.data.labels.push(Math.round(+tiempo.t1 * 100) / 100);
     this.chart.data.datasets[this.nroMed].data.push(tiempo.v1);
-    this.chart.data.labels.push(tiempo.t1 + tiempo.t2);
+    this.chart.data.labels.push(Math.round((tiempo.t1 + tiempo.t2) * 100) / 100);
     this.chart.data.datasets[this.nroMed].data.push(tiempo.v2);
-    this.chart.data.labels.push(tiempo.t1 + tiempo.t2 + tiempo.t3);
+    this.chart.data.labels.push(Math.round((tiempo.t1 + tiempo.t2 + tiempo.t3) * 100) / 100);
     this.chart.data.datasets[this.nroMed].data.push(tiempo.v3);
-    this.chart.data.labels.push(tiempo.t1 + tiempo.t2 + tiempo.t3 + tiempo.t4);
+    this.chart.data.labels.push(Math.round((tiempo.t1 + tiempo.t2 + tiempo.t3 + tiempo.t4) * 100) / 100);
     this.chart.data.datasets[this.nroMed].data.push(tiempo.v4);
-    this.chart.data.labels.push(tiempo.t1 + tiempo.t2 + tiempo.t3 + tiempo.t4 + tiempo.t5);
+    this.chart.data.labels.push(Math.round((tiempo.t1 + tiempo.t2 + tiempo.t3 + tiempo.t4 + tiempo.t5) * 100) / 100);
     this.chart.data.datasets[this.nroMed].data.push(tiempo.v5);
     // this.chart.data.datasets[0].data.push(response.data);
     this.chart.update();
