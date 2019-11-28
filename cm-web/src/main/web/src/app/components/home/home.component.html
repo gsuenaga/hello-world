@@ -44,7 +44,7 @@
                 <div class="card">
                     <canvas id="realtime">{{ chartRealtime }}</canvas>
                     <div class="card-content">
-                        <h3>Velocidad(t)</h3>
+                        <h3>Velocidad en función del tiempo</h3>
                         <p>Esta gráfica muestra la velocidad en función del tiempo</p>
                     </div>
                 </div>
@@ -56,7 +56,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>AAA</td>
+                    <td>
+                        <div>
+                            <h2>Enter some text, and then press the "tab" key.</h2>
+                            <p>(or just click outside of the text box)</p>
+                            <h3>You have made {{changeCount}} changes so far.</h3>
+                            <input type="text" (change)="changeCount = changeCount + 1" placeholder="Enter some text here" />
+                        </div>
+                    </td>
                 </tr>
             </td>
         </tr>

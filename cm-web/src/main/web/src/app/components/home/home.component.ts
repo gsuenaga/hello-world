@@ -28,6 +28,8 @@ export class HomeComponent implements OnInit {
   private intervalUpdate: any = null;
   public chart: any = null;
 
+  changeCount: number = 0;
+
   ngOnInit(): void {
 
     this.reglaService.getDistancias()
