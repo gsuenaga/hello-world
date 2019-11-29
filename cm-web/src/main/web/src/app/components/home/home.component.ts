@@ -29,7 +29,8 @@ export class HomeComponent implements OnInit {
   public chart: any = null;
 
   changeCount: number = 0;
-
+  distancia: number = 30;
+  
   ngOnInit(): void {
 
     this.reglaService.getDistancias()
@@ -211,4 +212,8 @@ export class HomeComponent implements OnInit {
     this.tiempos = new Array<Tiempos>();
   }
 
+  calculaAngulo(){
+    //this.changeCount = this.changeCount + 1;
+    this.changeCount = Math.atan(80 - this.distancia / 180) * (Math.PI / 180);
+  }
 }

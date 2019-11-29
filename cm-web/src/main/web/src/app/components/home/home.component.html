@@ -52,16 +52,29 @@
             <td colspan="5">
                 <tr>
                     <td>
-                        <img src="assets/img/3hrlep.gif" width="500" height="300" alt="">
+                        <p>
+                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Instrucciones
+                            </a>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                                <img src="assets/img/3hrlep.gif" width="400" height="250" alt=""/>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <div>
-                            <h2>Enter some text, and then press the "tab" key.</h2>
-                            <p>(or just click outside of the text box)</p>
-                            <h3>You have made {{changeCount}} changes so far.</h3>
-                            <input type="text" (change)="changeCount = changeCount + 1" placeholder="Enter some text here" />
+ <!--                           <h2>Enter some text, and then press the "tab" key.</h2>
+                            <p>(or just click outside of the text box)</p>-->
+                            <h3>Angulo: {{changeCount}}</h3>
+                        
+                           <!-- <input type="text" (change)="calculaAngulo()" placeholder="Enter some text here" /> -->
+
+                           <div class="form-group">
+                                    <label for="puerto">Distancia[cm]:</label>
+                                    <input (change)="calculaAngulo()" [(ngModel)]='distancia' name="puerto" class="form-control" id="puerto">
+                                </div>
                         </div>
                     </td>
                 </tr>
