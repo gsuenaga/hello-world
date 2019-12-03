@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   public chart: any = null;
 
   changeCount: number = 0;
-  distancia: number = 30;
+  distancia: number = 0;
   
   ngOnInit(): void {
 
@@ -214,6 +214,6 @@ export class HomeComponent implements OnInit {
 
   calculaAngulo(){
     //this.changeCount = this.changeCount + 1;
-    this.changeCount = Math.atan(80 - this.distancia / 180) * (Math.PI / 180);
+    this.changeCount = Math.round(Math.atan((80 - this.distancia) / 180) * (180 / Math.PI) * 100) / 100;
   }
 }

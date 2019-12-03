@@ -44,7 +44,7 @@
                 <div class="card">
                     <canvas id="realtime">{{ chartRealtime }}</canvas>
                     <div class="card-content">
-                        <h3>Velocidad en función del tiempo</h3>
+                        <h3>Velocidad</h3>
                         <p>Esta gráfica muestra la velocidad en función del tiempo</p>
                     </div>
                 </div>
@@ -58,23 +58,23 @@
                             </a>
                         </p>
                         <div class="collapse" id="collapseExample">
-                                <img src="assets/img/3hrlep.gif" width="400" height="250" alt=""/>
+                            <img src="assets/img/3hrlep.gif" width="400" height="250" alt="" />
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <div>
- <!--                           <h2>Enter some text, and then press the "tab" key.</h2>
+                            <!--                           <h2>Enter some text, and then press the "tab" key.</h2>
                             <p>(or just click outside of the text box)</p>-->
-                            <h3>Angulo: {{changeCount}}</h3>
-                        
-                           <!-- <input type="text" (change)="calculaAngulo()" placeholder="Enter some text here" /> -->
+                            <h3>Angulo: {{changeCount}}°</h3>
 
-                           <div class="form-group">
-                                    <label for="puerto">Distancia[cm]:</label>
-                                    <input (change)="calculaAngulo()" [(ngModel)]='distancia' name="puerto" class="form-control" id="puerto">
-                                </div>
+                            <!-- <input type="text" (change)="calculaAngulo()" placeholder="Enter some text here" /> -->
+
+                            <div class="form-group">
+                                <label for="puerto">Distancia[cm]:</label>
+                                <input (change)="calculaAngulo()" [(ngModel)]='distancia' name="puerto" class="form-control" id="puerto">
+                            </div>
                         </div>
                     </td>
                 </tr>
