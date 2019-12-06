@@ -14,7 +14,7 @@
 }
 
 .card-content {
-    background: #fff;
+    background: rgb(182, 179, 179);
     border-top: solid 1px #cdcdcd;
     padding: 5px 20px;
 }
@@ -27,3 +27,5 @@
 .card p {
     font-weight: 300;
 }
+
+input {background:#9F9;}
