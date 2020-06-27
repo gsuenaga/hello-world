@@ -1,1 +1,2 @@
-create table port (id integer not null auto_increment, port varchar(10), baudrate integer, databits integer, stopbits integer, parity varchar(20), primary key (id))
+create table port (id integer not null, port varchar(10), baudrate integer, databits integer, stopbits integer, parity varchar(20), primary key (id));
+create table regla (id integer not null, distancia real, primary key (id));

@@ -21,6 +21,11 @@
             <input [(ngModel)]="port.stopbits" name="stopbits" class="form-control" id="stopbits">
         </div>
 
-        <button class="btn btn-success" (click)="updatePort()">Create</button>
+        <div class="form-group">
+            <label for="paritybits">Bits de Stop:</label>
+            <input [(ngModel)]="port.paritybits" name="paritybits" class="form-control" id="paritybits">
+        </div>
+
+        <button class="btn btn-success" (click)="updatePort()">Guardar</button>
     </form>
 </div>

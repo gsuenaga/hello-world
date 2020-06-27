@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 import { SerialPort } from '../../models/serialport.model';
 
 
@@ -30,14 +30,20 @@ export class SerialPortService {
     return this.http.post<SerialPort>(this.serialPortUrl, port);
   }
 
-  public connectPort(port) {
+   public connectPort(port) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
     return this.http.post<string>(this.serialPortUrl + '/connect', port, { headers,  responseType: 'text' as 'json' });
   }
 
- 
-} 
+  public disconnectPort(port) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
-  
+    return this.http.post<string>(this.serialPortUrl + '/disconnect', port, { headers,  responseType: 'text' as 'json' });
+  }
+
+
+}
+
+
 

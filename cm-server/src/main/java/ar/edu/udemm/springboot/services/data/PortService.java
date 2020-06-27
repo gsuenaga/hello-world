@@ -14,5 +14,5 @@ public interface PortService {
 
     Port findById(int id);
 
-    Port update(Port user);
+    Port update(Port port);
 }

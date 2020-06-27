@@ -10,6 +10,7 @@
                 <th>Bits de datos</th>
                 <th>Bits de stop</th>
                 <th>Paridad</th>
+                <th>Estado</th>
             </tr>
         </thead>
         <tbody>
@@ -20,14 +21,18 @@
                 <td>{{port.databits}}</td>
                 <td>{{port.stopbits}}</td>
                 <td>{{port.paritybits}}</td>
+                <td>{{port.state}}</td>
                 <!-- <td><a class="btn btn-info btn-sm" role="button" routerLink="/search/1">Editar</a></td> -->
                 <!-- <td><a [routerLink]="['/detail', 1]" (click)="setPortSelected(port.id)">Editar</a></td> -->
                 <td>
                     <a routerLink="/detail/{{port.id}}/{{port.port}}/{{port.baudrate}}/{{port.databits}}/{{port.stopbits}}">Editar</a>
                 </td>
+                
                 <td><button class="btn btn-danger btn-sm" (click)="updatePort(port)">Eliminar</button></td>
-                <td><button class="btn btn-success btn-sm" (click)="connectPort(port)">Conectar</button></td>
+                <td *ngIf="!showActions && !port.active"><button class="btn btn-success btn-sm" (click)="connectPort(port)">Conectar</button></td>
+                <td *ngIf="showActions && port.active"><button class="btn btn-success btn-sm" (click)="disconnectPort(port)">Desconectar</button></td>
             </tr>
         </tbody>
+        <!-- {{this.portSelected.id}} -->
     </table>
 </div>

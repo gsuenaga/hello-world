@@ -1,0 +1,28 @@
+<!-- Editable table -->
+<div class="card">
+    <h3 class="card-header text-center font-weight-bold py-4">Configurar Regla</h3>
+    <div class="card-body">
+        <div id="table" class="table-editable">
+            <span class="table-add float-right mb-3 mr-2">
+          <a class="text-success">
+                <!-- <a class="text-success" (click)="add()"> -->
+            <!-- <mdb-icon fas icon="plus" size="2x"></mdb-icon> -->
+          </a>
+        </span>
+            <table class="table table-bordered table-responsive-md table-striped text-center">
+                <tr>
+                    <th style="width: 20%" class="text-center">Posición</th>
+                    <th style="width: 80%" class="text-center">Distancias [mm]</th>
+                </tr>
+                <tr *ngFor="let distancia of distancias; let id = index">
+                    <td>{{distancia.id}}</td>
+                    <td>
+                        <span (keyup)="changeValue(id,'distancia', $event)" (blur)="updateList(id,'distancia', $event)" contenteditable="true">{{distancia.distancia}}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<button class="btn btn-success" (click)="updateRegla()">Guardar</button>
+<!-- Editable table -->

@@ -5,4 +5,6 @@ export class SerialPort {
   databits: string;
   stopbits: string;
   paritybits: string;
+  active: boolean;
+  state: string;
 }
